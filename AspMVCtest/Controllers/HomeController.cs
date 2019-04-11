@@ -12,6 +12,8 @@ namespace AspMVCtest.Controllers
         {
             ViewBag.title = "hello world";
             return View();
+
+
         }
 
 
