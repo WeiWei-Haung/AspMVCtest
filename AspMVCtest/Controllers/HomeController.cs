@@ -63,7 +63,7 @@ namespace AspMVCtest.Controllers
             DateTime date = DateTime.Now;
             ViewBag.Date = date;
 
-            Student data = new Student("1"."AAA", 80);
+            Student data = new Student("1","AAA", 80);
             return View(data);
         }
 
