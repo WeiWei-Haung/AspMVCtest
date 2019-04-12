@@ -153,12 +153,15 @@ namespace AspMVCtest.Controllers
                                             ";
             MySqlCommand cmd = new MySqlCommand(sql, conn);//建立command
             int index = cmd.ExecuteNonQuery();// 執行SQL語法 ExecuteNonQuery如果用在新增修改刪除,成功會返回受影響的列數,失敗會傳回0，最後再判斷是否成功
+
             bool success = false;
             if (index > 0)
                 success = true;
             else
                 success = false;
+
             ViewBag.Success = success;
+
             conn.Clone();
             return View();
         }
@@ -170,8 +173,24 @@ namespace AspMVCtest.Controllers
 
         public ActionResult Day17() //學習讀取資料庫資料
         {
+            string connString = "server=127.0.0.1;port=3306;user id=root;password=;database=aspmvctest;charset=utf8;"; //建立資料庫連現線字串
+            MySqlConnection conn = new MySqlConnection();
 
 
+            conn.ConnectionString = connString; //將連線跟字串連結起來
+            if (conn.State != ConnectionState.Open)//判斷連線是否已打開 若無則打開連線
+                conn.Open();
+
+            string sql = @"SELECT * FROM `city` ";
+
+            DataTable dt = new DataTable();
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(sql, conn);
+            adapter.Fill(dt);
+
+            ViewBag.DT = dt;
+            return View();
+            
         }
 
     }

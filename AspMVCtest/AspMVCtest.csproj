@@ -173,6 +173,7 @@
     <Content Include="Views\Home\Day11.cshtml" />
     <Content Include="Views\Home\TranscriptsDay11.cshtml" />
     <Content Include="Views\Home\Day16.cshtml" />
+    <Content Include="Views\Home\Day17.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

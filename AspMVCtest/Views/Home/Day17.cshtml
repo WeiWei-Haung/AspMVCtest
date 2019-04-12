@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Day17";
+
+    var dt = ViewBag.DT;
+}
+
+<h2>Day17</h2>
+
+@for (int i = 0; i < dt.Rows.Count; i++)
+{
+    @Html.Raw($"代號:{dt.Rows[i]["id"]},名稱:{dt.Rows[i]["city"]}")
+    <br />
+}
