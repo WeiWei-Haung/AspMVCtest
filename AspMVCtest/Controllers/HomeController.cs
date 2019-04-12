@@ -67,7 +67,20 @@ namespace AspMVCtest.Controllers
             return View(data);
         }
 
+        public ActionResult Day10()
+        {
+            DateTime date = DateTime.Now;
+            ViewBag.Date = date;
 
+            Student data = new Student("1", "AAA", 80);
+            return View(data);
+        }
+
+        public ActionResult TranscriptsDay10(string id, string name, int score)
+        {
+            Student data = new Student(id, name, score);
+            return View(data);
+        }
     }
 
     
