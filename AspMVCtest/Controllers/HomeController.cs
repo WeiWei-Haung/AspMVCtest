@@ -16,6 +16,7 @@ namespace AspMVCtest.Controllers
             public string id { get; set; }
             public string name { get; set; }
             public int score { get; set; }
+
             public Student()
             {
                 id = string.Empty;
@@ -58,7 +59,7 @@ namespace AspMVCtest.Controllers
 
         }
 
-        public ActionResult Day8()
+        public ActionResult Day8() //學習透過MODEL進行資料前後端傳送
         {
             DateTime date = DateTime.Now;
             ViewBag.Date = date;
@@ -67,7 +68,11 @@ namespace AspMVCtest.Controllers
             return View(data);
         }
 
-        public ActionResult Day10()
+
+        //---------------------------------------------------------------------
+
+
+        public ActionResult Day10() //學習透過GET 進行資料傳送
         {
             DateTime date = DateTime.Now;
             ViewBag.Date = date;
@@ -76,12 +81,39 @@ namespace AspMVCtest.Controllers
             return View(data);
         }
 
-        public ActionResult TranscriptsDay10(string id, string name, int score)
+        public ActionResult TranscriptsDay10(string id, string name, int score) //學習透過GET表單傳送資料
         {
             Student data = new Student(id, name, score);
             return View(data);
         }
+
+        //---------------------------------------------------------------------
+
+
+        public ActionResult Day11() //學習透過POST 進行資料傳送
+        {
+            DateTime date = DateTime.Now;
+            ViewBag.Date = date;
+
+            Student data = new Student("2", "BBB", 80);
+            return View(data);
+        }
+
+        [HttpPost]
+        public ActionResult TranscriptsDay11(FormCollection post) //學習透過POST表單傳送資料
+        {
+            string id = post["id"];
+            string name = post["name"];
+            int score = Convert.ToInt32(post["score"]);//Convert.ToInt32將string資料轉為int
+           
+            Student data = new Student(id, name, score);
+            return View(data);
+                       
+        }
     }
 
-    
+
+    //---------------------------------------------------------------------
+
+
 }
