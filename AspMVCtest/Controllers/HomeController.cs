@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -110,10 +112,75 @@ namespace AspMVCtest.Controllers
             return View(data);
                        
         }
+
+
+        //---------------------------------------------------------------------
+
+
+        public ActionResult Day16() //學習連結資料庫
+        {
+            string connString = "server=127.0.0.1;port=3306;user id=root;password=;database=aspmvctest;charset=utf8;"; //建立資料庫連現線字串
+            MySqlConnection conn = new MySqlConnection();
+
+
+            conn.ConnectionString = connString; //將連線跟字串連結起來
+            if (conn.State != ConnectionState.Open)//判斷連線是否已打開 若無則打開連線
+                conn.Open();
+
+            string sql = @"INSERT INTO `City` (`Id`, `City`) VALUES
+                           ('0', '基隆市'),
+                           ('1', '臺北市'),
+                           ('2', '新北市'),
+                           ('3', '桃園市'),
+                           ('4', '新竹市'),
+                           ('5', '新竹縣'),
+                           ('6', '宜蘭縣'),
+                           ('7', '苗栗縣'),
+                           ('8', '臺中市'),
+                           ('9', '彰化縣'),
+                           ('A', '南投縣'),
+                           ('B', '雲林縣'),
+                           ('C', '嘉義市'),
+                           ('D', '嘉義縣'),
+                           ('E', '臺南市'),
+                           ('F', '高雄市'),
+                           ('G', '屏東縣'),
+                           ('H', '澎湖縣'),
+                           ('I', '花蓮縣'),
+                           ('J', '臺東縣'),
+                           ('K', '金門縣'),
+                           ('L', '連江縣');
+                                            ";
+            MySqlCommand cmd = new MySqlCommand(sql, conn);//建立command
+            int index = cmd.ExecuteNonQuery();// 執行SQL語法 ExecuteNonQuery如果用在新增修改刪除,成功會返回受影響的列數,失敗會傳回0，最後再判斷是否成功
+            bool success = false;
+            if (index > 0)
+                success = true;
+            else
+                success = false;
+            ViewBag.Success = success;
+            conn.Clone();
+            return View();
+        }
+
+        //---------------------------------------------------------------------
+        
+
+
+
+        public ActionResult Day17() //學習讀取資料庫資料
+        {
+
+
+        }
+
     }
 
 
-    //---------------------------------------------------------------------
+
+
+
+
 
 
 }
