@@ -132,6 +132,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\MyDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,7 @@
     <Content Include="Views\Home\Day16.cshtml" />
     <Content Include="Views\Home\Day17.cshtml" />
     <Content Include="Views\Home\Day19.cshtml" />
+    <Content Include="Views\Home\Day23.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

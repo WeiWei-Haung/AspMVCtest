@@ -234,6 +234,17 @@ namespace AspMVCtest.Controllers
 
         }
 
+
+
+        
+        public ActionResult Day23() //學習AJAX技術 使用MyDataBase
+        {
+            MyDataBase db = new MyDataBase();
+            List<City> citylist = db.GetCityList();
+
+            ViewBag.list = citylist;
+            return View();
+        }
     }
 
 
