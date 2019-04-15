@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Day19";
+    var list = ViewBag.List;
+}
+
+<h2>Day19</h2>
+
+@for (int i = 0; i < list.Count; i++)
+{
+    <span>
+        <label>@Html.Raw($"代號:{list[i].CityId},名稱:{list[i].CityName}")</label>
+    </span>
+    <br />
+}

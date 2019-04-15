@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using AspMVCtest.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -171,7 +172,7 @@ namespace AspMVCtest.Controllers
 
 
 
-        public ActionResult Day17() //學習讀取資料庫資料
+        public ActionResult Day17() //學習讀取資料庫資料 DataTable
         {
             string connString = "server=127.0.0.1;port=3306;user id=root;password=;database=aspmvctest;charset=utf8;"; //建立資料庫連現線字串
             MySqlConnection conn = new MySqlConnection();
@@ -191,6 +192,46 @@ namespace AspMVCtest.Controllers
             ViewBag.DT = dt;
             return View();
             
+        }
+
+
+        public ActionResult Day19() //學習讀取資料庫資料  DataReader連結資料庫
+        {
+            string connString = "server=127.0.0.1;port=3306;user id=root;password=;database=aspmvctest;charset=utf8;"; //建立資料庫連現線字串
+            MySqlConnection conn = new MySqlConnection();
+
+            conn.ConnectionString = connString; //將連線跟字串連結起來
+
+            string sql = @"SELECT * FROM `city`";
+
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+            List<City> list = new List<City>();
+
+            if (conn.State != ConnectionState.Open)
+            {
+                conn.Open();
+            }
+
+            using (MySqlDataReader dr =cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    City city = new City();
+                    city.CityId = dr["id"].ToString();
+                    city.CityName = dr["city"].ToString();
+                    list.Add(city);
+                }
+            }
+
+            if (conn.State != ConnectionState.Closed)
+            {
+                conn.Close();
+            }
+            ViewBag.List = list;
+            return View();
+
+
         }
 
     }
