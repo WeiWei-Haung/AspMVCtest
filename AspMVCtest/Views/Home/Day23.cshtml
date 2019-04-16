@@ -2,16 +2,77 @@
 @{
     ViewBag.Title = "Day23";
 
-    var list = ViewBag.list;
+    var citylist = ViewBag.list;
 }
 
 <h2>Day23</h2>
 
 <form style="margin-left:10px;">
-    <h1>請入使用者資料</h1>
-    <div class="form-group">
+     <h1>請入使用者資料</h1>
+     <div class="form-group">
         <label>帳號</label>
         <input type="text" class="form-control" id="Account" name="account" placeholder="輸入帳號" />
         <small>請輸入英數字</small>
-    </div>
+     </div>
+     <div>
+        <label>新的密碼</label>
+        <input type="password" class="form-control" id="Password1" placeholder="輸入新密碼" />
+     </div>
+     <div>
+         <label>確認密碼</label>
+         <input type="password" class="form-control" id="Password2" placeholder="再次輸入密碼" />
+     </div>
+     <div>
+         <label>地址</label>
+         <select id="city" name="city">
+             <option value="">全部</option>
+             @for (int i = 0; i < citylist.Count; i++)
+             {
+                 <option value="@citylist[i].CityId">@citylist[i].CityName</option>
+             }
+         </select>
+         <select id="village" name="village">
+             <option value="">請選擇鄉鎮</option>
+
+         </select>
+     </div>
+     <input type="text" class="form-control" id="Address" name="address" placeholder="請輸入地址" />
+     <button type="submit" class="btn btn-primary">送出</button>
+     <button type="reset" class="btn btn-warning">清除</button>
+
+    <script src="~/Scripts/jquery-3.3.1.min.js">
+        $("#city").change(function () {
+            var val = $("#city").val();
+            console.log(val);
+            $.ajax({
+                type: "Post",
+                url: "../Home/Village?id=" + val,
+                data: '{}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    $("#village").empty();
+                    if (data == "") {
+                        $("#village").append("<Option value=''>請選擇縣市</Option>");
+                    }
+                    else {
+                        var jo = JSON.parse(data);
+                        $("#village").append("<option value=''>請選擇</option>");
+                        for (var i = 0; i < jo.length; i++) {
+                            $("#village").append("<option value='" + jo[i].villageId + "'>" + jo[i].villageName + "</option>");
+
+                        }
+                    }
+                },
+                failure: function (errMsg) {
+                    $("#village").empty();
+                    $("#village").append("<option value=''>請選擇程城市</option>")
+                }
+            })
+        });
+    </script>
+
+
+        
 </form>
