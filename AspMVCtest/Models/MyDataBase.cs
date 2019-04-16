@@ -56,5 +56,53 @@ namespace AspMVCtest.Models
             
             
         }
+
+        public List<Village> GetVillageList()
+        {
+            try
+            {
+                string connString = "server=127.0.0.1;port=3306;user id=root;password=;database=aspmvctest;charset=utf8;"; //建立資料庫連現線字串
+                MySqlConnection conn = new MySqlConnection();
+
+                conn.ConnectionString = connString; //將連線跟字串連結起來
+
+                string sql = @"SELECT `VillageId`,`village` FROM `village`";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+                List<Village> list = new List<Village>();
+
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+
+                using (MySqlDataReader dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Village village = new Village();
+                        village.VillageId = dr["VillageId"].ToString();
+                        village.VillageName = dr["village"].ToString();
+                        list.Add(village);
+                    }
+                }
+
+                if (conn.State != ConnectionState.Closed)
+                {
+                    conn.Close();
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                String error = ex.ToString();
+                return null;
+            }
+
+
+
+        }
     }
 }

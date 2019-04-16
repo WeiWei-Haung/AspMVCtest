@@ -1,5 +1,6 @@
 ﻿using AspMVCtest.Models;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +10,7 @@ using System.Web.Mvc;
 
 namespace AspMVCtest.Controllers
 {
-    public class HomeController : Controller
+    public class  HomeController : Controller
     {
        
 
@@ -244,6 +245,23 @@ namespace AspMVCtest.Controllers
 
             ViewBag.list = citylist;
             return View();
+        }
+
+        public  ActionResult Village(string id="") //Day23 AJAX用
+        {
+            MyDataBase db = new MyDataBase();
+            List<Village> list = db.GetVillageList();
+            string result = "";
+            if (list == null)
+            {
+                //資料庫聯線錯誤
+                return Json(result);
+            }
+            else
+            {
+                result = JsonConvert.SerializeObject(list);
+                return Json(result);
+            }
         }
     }
 

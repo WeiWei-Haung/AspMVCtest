@@ -133,6 +133,7 @@
     </Compile>
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\MyDataBase.cs" />
+    <Compile Include="Models\Village.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
